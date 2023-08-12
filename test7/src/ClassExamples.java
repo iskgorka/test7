@@ -1,6 +1,5 @@
 public class ClassExamples {
 }
-
 /*
 Ex1
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -71,12 +70,31 @@ interface example 3
             void nonifaceMeth(){
                 System.out.println("В классах, реализующих интерфейсы, " +
                         "могут определятся и другие элементы");
-
-
             }
         }
 
 interface example 3_1
+        class Bird {
+            String getName() {
+                return "Unknow";
+            }
+            void displayInformation() {
+                System.out.println("The bird name is " + getName());
+            }
+        }
+        class Peacock extends Bird {
+            String getName() {
+                return "Peacock";
+            }
+        }
+        class Demo {
+            public static void main(String[] args) {
+                Bird bird = new Peacock();
+                bird.displayInformation(); // The bird name is Peacock
+            }
+        }
+
+interface example 3_2
         class A {
             void callMe() {
                 System.out.println("В методе callMe() из класса А");
@@ -178,4 +196,49 @@ interface example 5
                 c.callBack(42);
             }
         }
+
+interface example 6
+        class Figure {
+            double dim1;
+            double dim2;
+            Figure(double a, double b) {
+                dim1 = a;
+                dim2 = b;
+            }
+        }
+        class Rectangle extends Figure {
+            double dimR;
+            Rectangle(double a, double b) {
+                super(a, b);
+            }
+            double area() {
+                System.out.println("В области четырехугольника.");
+                return dim1 * dim2;
+            }
+        }
+        class Triangle extends Figure {
+            double dimT;
+            Triangle(double a, double b) {
+                super(a, b);
+            }
+            double area() {
+                System.out.println("В области треугольника.");
+                return dim1 * dim2 / 2;
+            }
+        }
+        class Areas {
+            public static void main(String[] args) {
+                Figure figure;
+                Rectangle r = new Rectangle(9, 5);
+                Triangle t = new Triangle(10, 8);
+                figure = r; // переводим подкласс Rectangle в суперкласс Figure
+                //Rectangle r2 = figure; // суперкласс Figure в подкласс Rectangle
+                //System.out.println("Площадь равна " + figure.area());
+                t = (Triangle)figure;
+                System.out.println("Площадь равна " + t.area());
+            }
+        }
+
+interface example 6_1
+
 */
