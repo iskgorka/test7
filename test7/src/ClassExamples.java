@@ -672,4 +672,79 @@ interface example 17
 
             }
         }
+
+Presentation examples
+Example 1
+        class Bird {
+            public String getName() {
+                return "Unknown";
+            }
+            public void displayInformation() {
+                System.out.println("The bird name is " + getName());
+            }
+        }
+        class Peacock extends Bird {
+            public String getName() {
+                return "Peacock";
+            }
+        }
+        class Main {
+            public static void main(String[] args) {
+                Bird bird = new Peacock();
+                bird.displayInformation(); // Peacock
+            }
+        }
+
+Example 2
+        class Primate {
+            public boolean hasHair() {
+                return true;
+            }
+        }
+        interface HasTail {
+            boolean isTailStriped();
+        }
+        class Lemur extends Primate implements HasTail {
+            public int age = 10;
+            public boolean isTailStriped() {
+                return false;
+            }
+        }
+        class Main {
+            public static void main(String[] args) {
+                Lemur lemur = new Lemur();
+                System.out.println(lemur.age); // 10
+                HasTail hasTail = lemur;
+                System.out.println(hasTail.isTailStriped()); // false
+                Primate primate = lemur;
+                System.out.println(primate.hasHair()); // true
+            }
+        }
+
+Example 3
+        class Reptile {
+            public String getName() {
+                return "Reptile";
+            }
+        }
+        class Alligator extends Reptile {
+            public String getName() {
+                return "Alligator";
+            }
+        }
+        class Crocodile extends Reptile {
+            public String getName() {
+                return "Crocodile";
+            }
+        }
+        class ZooWorker {
+            public static void feed(Reptile reptile) {
+                System.out.println("Feeding " + reptile.getName());
+            }
+            public static void main(String[] args){
+                feed(new Crocodile());
+                feed(new Alligator());
+                feed(new Reptile());
+            }
+        }
 */
