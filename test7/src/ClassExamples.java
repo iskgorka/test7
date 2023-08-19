@@ -76,7 +76,7 @@ interface example 3
 interface example 3_1
         class Bird {
             String getName() {
-                return "Unknow";
+                return "Unknown";
             }
             void displayInformation() {
                 System.out.println("The bird name is " + getName());
@@ -311,37 +311,37 @@ interface example 9
         class FixedStack implements IntStack {
             private int stck[];
             private int tos;
-        //Выделить память и инициализировать стек
+            //Выделить память и инициализировать стек
             FixedStack(int size) {
                 stck = new int [size];
                 tos = -1;
             }
-        //Разместить элемент в стеке
-            public void push(int item) {
-                if(tos == stck.length - 1) // использовать поле длинны стека
+            //Разместить элемент в стеке
+            public void push(int i) {
+                if(tos == stck.length - 1) // использовать поле длинны стека (-1 == 4)(0 == 4)(1 == 4)(2 == 4)(3 == 4)(4 == 4)
                     System.out.println("Стек заполнен.");
                 else
-                    stck[++tos] = item;
+                    stck[++tos] = i; //(stck[0] = 0) (stck[1] = 1) (stck[2] = 2) (stck[3] = 3) (stck[4] = 4)
             }
-        //Извлечь элемент из стека
+            //Извлечь элемент из стека
             public int pop() {
-                if(tos < 0) {
+                if(tos < 0) { // 4<0 3<0 2<0 1<0 0<0
                     System.out.println("Стек не загружен.");
                     return 0;
                 } else
-                    return stck[tos--];
+                    return stck[tos--]; // (stck[4]=4,tos=3)(stck[3]=3,tos=2)(stck[2]=2,tos=1)(stck[1]=1,tos=0)(stck[0]=0,tos=-1)
             }
         }
         class IFTest {
             public static void main(String args[]) {
-                FixedStack mystack1 = new FixedStack(5);
+                FixedStack mystack1 = new FixedStack(5); // stck[5], tos = -1
                 FixedStack mystack2 = new FixedStack(8);
-        // разместить числа в стеке
-                for (int i = 0; i < 5; i++) mystack1.push(i);
-                for (int i = 0; i < 8; i++) mystack2.push(i);
-        // извлечь эти числа из стека
+                // разместить числа в стеке
+                for (int i = 0; i <= 5; i++) mystack1.push(i); // i=0 i=1 i=2 i=3 i=4 i=5
+                for (int i = 0; i <= 8; i++) mystack2.push(i);
+                // извлечь эти числа из стека
                 System.out.println("Стек в mystack1: ");
-                for (int i = 0; i < 5; i++)
+                for (int i = 0; i < 5; i++)  // i=0 i=1 i=2 i=3 i=4 i=5
                     System.out.println(mystack1.pop());
                 System.out.println("Стек в mystack2: ");
                 for (int i = 0; i < 8; i++)
@@ -359,23 +359,23 @@ interface example 10
         class DynStack implements IntStack {
             private int stck[];
             private int tos;
-        //Выделить память и инициализировать стек
+            //Выделить память и инициализировать стек
             DynStack(int size) {
                 stck = new int [size];
                 tos = -1;
             }
-        //Разместить элемент в стеке
-            public void push(int item) {
-        // если стек заполнен, выделить память под стек большего размера
-                if(tos == stck.length - 1) {
-                    int temp[] = new int[stck.length * 2]; //удвоить размер стека
-                    for (int i = 0; i < stck.length; i++) temp[i] = stck[i];
+            //Разместить элемент в стеке
+            public void push(int item) { //item=0
+                // если стек заполнен, выделить память под стек большего размера
+                if(tos == stck.length - 1) { //-1 == 4 4 == 4
+                    int temp[] = new int[stck.length * 2]; //удвоить размер стека temp[10]
+                    for (int i = 0; i < stck.length; i++) temp[i] = stck[i]; //temp[0] = stck[0]
                     stck = temp;
                     stck[++tos] = item;
                 } else
-                    stck[++tos] = item;
+                    stck[++tos] = item; //stck[0] = 0;
             }
-        //Извлечь элемент из стека
+            //Извлечь элемент из стека
             public int pop() {
                 if(tos < 0) {
                     System.out.println("Стек не загружен.");
@@ -388,15 +388,15 @@ interface example 10
             public static void main(String args[]) {
                 DynStack mystack1 = new DynStack(5);
                 DynStack mystack2 = new DynStack(8);
-        // В этих циклах увеличиваются размеры каждого стека
-                for (int i = 0; i < 12; i++) mystack1.push(i);
-                for (int i = 0; i < 20; i++) mystack2.push(i);
-        // извлечь эти числа из стека
+                // В этих циклах увеличиваются размеры каждого стека
+                for (int i = 0; i < 5; i++) mystack1.push(i); // i=0
+                for (int i = 0; i < 8; i++) mystack2.push(i);
+                // извлечь эти числа из стека
                 System.out.println("Стек в mystack1: ");
-                for (int i = 0; i < 12; i++)
+                for (int i = 0; i < 5; i++)
                     System.out.println(mystack1.pop());
                 System.out.println("Стек в mystack2: ");
-                for (int i = 0; i < 20; i++)
+                for (int i = 0; i < 8; i++)
                     System.out.println(mystack2.pop());
             }
         }
@@ -629,12 +629,32 @@ interface example 15
 
 interface example 16
         interface IntStack {
-            void push(int item);
-            int pop();
-        // у метода clear() теперь имеется вариант по умолчанию, поэтому
-        // его можно реализовать в классе, который будет имплементировать интерфейс
+            int getNumber();
+            // у метода clear() теперь имеется вариант по умолчанию, но
+            // его можно реализовать в классе, который будет имплементировать интерфейс
             default void clear() {
                 System.out.println("Метод clear() не реализован.");
+            }
+        }
+        //Реализовать интерфейс IntStack
+        class MyClass2 implements IntStack {
+            public int getNumber() {
+                return 100;
+            }
+            String getString() {
+                return "Это другая символьная строка.";
+            }
+            public void clear() {
+                System.out.println("Переопределённый метод clear().");
+            }
+        }
+        //Использовать метод по умолчанию
+        class DefaultMethodDemo {
+            public static void main(String[] args){
+                MyClass2 ob = new MyClass2();
+                System.out.println(ob.getNumber());
+                System.out.println(ob.getString());
+                ob.clear();
             }
         }
 
@@ -653,12 +673,12 @@ interface example 17
             Client() {
                 System.out.println("Конструктор класса Client.");
             }
-            public void callBack(int p){
-                System.out.println("Метод callBack() вызываемый со значением " + p);
-            }
             public int getNumber() {
                 System.out.println("Метод getNumber(), вызываемый со значением 10");
                 return 10;
+            }
+            public void callBack(int p){
+                System.out.println("Метод callBack() вызываемый со значением " + p);
             }
         }
         class Demo {
@@ -669,7 +689,6 @@ interface example 17
                 System.out.println(ob.getString());
                 ob.callBack(30);
                 ob.getNumber();
-
             }
         }
 
@@ -687,10 +706,14 @@ Example 1
             public String getName() {
                 return "Peacock";
             }
+            public void displayInformation() {
+                System.out.println("Zalupa");
+            }
         }
         class Main {
             public static void main(String[] args) {
                 Bird bird = new Peacock();
+                System.out.println(bird.getName());
                 bird.displayInformation(); // Peacock
             }
         }
